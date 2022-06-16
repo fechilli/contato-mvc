@@ -1,0 +1,4 @@
+Primerios comandos para o funcionamento 
+
+nmp init -y > instala a pasta node modules 
+npm i express >  para instalar  as bibliotecas para rodar o express 
