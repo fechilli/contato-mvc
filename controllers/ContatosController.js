@@ -1,43 +1,40 @@
-// para testes assumindo que o usuario logado é o usuario de id =10
+// Para testes, assumindo que o usuário logado é o usuário de id=1;
 const uid = 1;
-
-
 
 module.exports = {
 
     listarContatos: (req, res)=>{
 
-        // IMPORTANDO OS CONTATOS DO USUARIO
-        let contatos = require(`../database/contatos_${uid}.json`)
-        // enviando os contatdos para o cliente
-        res.render('home.ejs', 
-        {
+        // Importar os contatos do usuário:
+        let contatos = require(`../database/contatos_${uid}.json`);
 
-        });
+        // Enviando a view para o cliente
+        res.render('home.ejs',{contatos: contatos});
+
     },
 
-    capturarContato : (req, res)=>{
-        // importando os dados do contatos
-        let contatos = require(`../database/contatos_${uid}.json`)
-        //Descobrir o Id do contato que o usuario quer...
-        let idDoContato = req.params.id       
-        
+    capturarContato: (req, res) => {
 
-        // Encontarr no array de contatos o contato que tem o ID desejador
-        let contato  = contatos.find(
+        // Importar os contatos do usuário:
+        let contatos = require(`../database/contatos_${uid}.json`);
+
+        // Descobrir o ID do contato que o usuário quer...
+        let idDoContato = req.params.id;
+
+        // Encontrar no array de contatos o contato que tem o id desejado.
+        let contato = contatos.find(
             (c) => {
-                return c.id == idDoContato
+                return c.id == idDoContato;
             }
-
         );
-        // Retornoar o contato para o cliente e retornar o contato se o mesmo nao existir       
 
-        if(contato === undefined) {
-            res.send({msg:' {O contato buscado não existe'})
-        }else{
-            res.render(contato)
+        // Retorar o contato para o cliente OU
+        // uma msg erro se o contato não existir
+        if(contato === undefined){
+            res.send({msg: "O contato inexistente"});
+        } else {
+            res.send(contato);
         }
-
 
     }
 
